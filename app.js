@@ -12,11 +12,11 @@ document.getElementById('search-btn').addEventListener('click', async () => {
     const weatherCard = document.getElementById('weather-card');
 
     if (!city) {
-        weatherCard.innerHTML = "<p style='color: #fee2e2;'>⚠️Por favor, escribe un lugar válido.</p>";
+        weatherCard.innerHTML = "<p style='color: #fee2e2;'>Por favor, escribe un lugar válido.</p>";
         return;
     }
 
-    weatherCard.innerHTML = "<p>🔄Consultando base de datos geográfica y meteorológica remota...</p>";
+    weatherCard.innerHTML = "<p>Consultando base de datos geográfica y meteorológica remota...</p>";
 
     try {
 
@@ -24,7 +24,7 @@ document.getElementById('search-btn').addEventListener('click', async () => {
         const data = await response.json();
 
         if (data.length === 0) {
-            weatherCard.innerHTML = "<p style='color: #fee2e2;'>❌No se encontraron datos para esa ubicación.</p>";
+            weatherCard.innerHTML = "<p style='color: #fee2e2;'>No se encontraron datos para esa ubicación.</p>";
             return;
         }
 
@@ -56,7 +56,7 @@ document.getElementById('search-btn').addEventListener('click', async () => {
 
         // Renderizado e inyección dinámica unificada en el DOM
         weatherCard.innerHTML = `
-            <h3>🗺️Ubicación Localizada: 🧭${city}</h3>
+            <h3>🗺️Ubicación Localizada: ${city}</h3>
             <p class="description"><strong>Descripción oficial:</strong> ${lugar.display_name}</p>
 
             <div class="geo-data">
@@ -64,7 +64,7 @@ document.getElementById('search-btn').addEventListener('click', async () => {
             </div>
             <hr style="border: 0.5px solid #4ade80; margin: 15px 0;">
             <div class="weather-data">
-                <h4> ⛈️🌤️Parámetros Climatológicos⛈️🌤️</h4>
+                <h4> 🌤️Parámetros Climatológicos🌤️</h4>
                 <p><strong>Temperatura:</strong> ${temp}°C</p>
                 <p><strong>Humedad:</strong> ${humidity}%</p>
                 <p><strong>Condición:</strong> ${condition}</p>

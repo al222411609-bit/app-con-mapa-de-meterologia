@@ -1,27 +1,46 @@
+const map = L.map('map').setView([20, 0], 2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; Colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+let marker = null;
+
 document.getElementById('search-btn').addEventListener('click', async () => {
     const city = document.getElementById('city-input').value.trim();
     const weatherCard = document.getElementById('weather-card');
 
     if (!city) {
-        weatherCard.innerHTML = "<p style='color: #fee2e2;'>⚠️ Por favor, escribe un lugar válido.</p>";
+        weatherCard.innerHTML = "<p style='color: #fee2e2;'>⚠️Por favor, escribe un lugar válido.</p>";
         return;
     }
 
-    weatherCard.innerHTML = "<p>🔄 Consultando base de datos geográfica y meteorológica remota...</p>";
+    weatherCard.innerHTML = "<p>🔄Consultando base de datos geográfica y meteorológica remota...</p>";
 
     try {
-        // Consumo asíncrono a la API Nominatim de OpenStreetMap
+
         const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}&limit=1`);
         const data = await response.json();
 
         if (data.length === 0) {
-            weatherCard.innerHTML = "<p style='color: #fee2e2;'>❌ No se encontraron datos para esa ubicación.</p>";
+            weatherCard.innerHTML = "<p style='color: #fee2e2;'>❌No se encontraron datos para esa ubicación.</p>";
             return;
         }
 
         const lugar = data[0];
 
-        // Si el usuario busca "Lerma", forzamos los datos solicitados por el cliente.
+        const lat = parseFloat(lugar.lat);
+        const lon = parseFloat(lugar.lon);
+
+        map.setView([lat, lon], 11);
+
+        if (marker) map.removeLayer(marker);
+        marker = L.marker([lat, lon]).addTo(map)
+            .bindPopup(city)
+            .openPopup();
+
+        // Lógica de negocio: Si el usuario busca "Lerma", forzamos los datos solicitados por el cliente.
         // Si busca otra ciudad, generamos parámetros meteorológicos consistentes automáticamente.
         let temp, humidity, condition;
 
@@ -37,15 +56,15 @@ document.getElementById('search-btn').addEventListener('click', async () => {
 
         // Renderizado e inyección dinámica unificada en el DOM
         weatherCard.innerHTML = `
-            <h3>🗺️ Ubicación Localizada: 🧭 ${city}</h3>
+            <h3>🗺️Ubicación Localizada: 🧭${city}</h3>
             <p class="description"><strong>Descripción oficial:</strong> ${lugar.display_name}</p>
 
             <div class="geo-data">
                 <p><strong>Latitud:</strong> ${lugar.lat} &nbsp;|&nbsp; <strong>Longitud:</strong> ${lugar.lon}</p>
             </div>
-            <hr style="border: 0.5px solid #4acdde; margin: 15px 0;">
+            <hr style="border: 0.5px solid #4ade80; margin: 15px 0;">
             <div class="weather-data">
-                <h4>⛈️🌤️ Parámetros Climatológicos ⛈️🌤️</h4>
+                <h4> ⛈️🌤️Parámetros Climatológicos⛈️🌤️</h4>
                 <p><strong>Temperatura:</strong> ${temp}°C</p>
                 <p><strong>Humedad:</strong> ${humidity}%</p>
                 <p><strong>Condición:</strong> ${condition}</p>
@@ -54,6 +73,6 @@ document.getElementById('search-btn').addEventListener('click', async () => {
         `;
     } catch (error) {
         console.error(error);
-        weatherCard.innerHTML = "<p style='color: #fee2e2;'>❌ Error en la comunicación asíncrona con el servidor.</p>";
+        weatherCard.innerHTML = "<p style='color: #fee2e2;'>❌Error en la comunicación asíncrona con el servidor.</p>";
     }
 });

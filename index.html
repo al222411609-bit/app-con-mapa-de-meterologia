@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador Geográfico Profesional</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
     <header>
-        <h1> Localizador Geográfico Global </h1>
-        <p>Consumo de API OpenStreetMap con control de versiones integral. Por Tu Nombre Completo</p>
+        <h1>🌍 Localizador Geográfico Global🌍 </h1>
+        <p>Consumo de API OpenStreetMap con control de versiones integral. Yessica Maria Martinez Hernandez</p>
     </header>
 
     <main>
@@ -19,10 +20,13 @@
         </div>
 
         <div id="weather-card" class="weather-card">
-            <p>Introduce una ubicación para desplegar las coordenadas y descripción geográfica.</p>
+            <p>Introduce una ubicación para desplegar las coordenadas y descripción geográfica. </p>
         </div>
+
+        <div id="map"></div>
     </main>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

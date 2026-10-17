@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #5a89a1 0%, #147777 100%);
+    background: linear-gradient(135deg, #5a8ca1 0%, #05272e 100%);
     color: #f8fafc;
     margin: 0;
     padding: 20px;
@@ -15,6 +15,13 @@ header {
     margin-bottom: 30px;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .search-container {
     margin-bottom: 20px;
 }
@@ -22,20 +29,20 @@ header {
 input {
     padding: 10px 15px;
     border-radius: 6px;
-    border: 1px solid #156980;
-    background: #166165;
+    border: 1px solid #155b80;
+    background: #164d65;
     color: #fff;
     width: 250px;
 }
 
 input::placeholder {
-    color: #bbf7d0;
+    color: #bbe8f7;
 }
 
 button {
     padding: 10px 20px;
-    background: #4ab7de;
-    color: #143753;
+    background: #4adcde;
+    color: #144153;
     border: none;
     border-radius: 6px;
     font-weight: bold;
@@ -44,35 +51,35 @@ button {
 }
 
 button:hover {
-    background: #22b8c5;
+    background: #2294c5;
 }
 
 .weather-card {
-    background: #1676a3;
+    background: #168ba3;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
     max-width: 480px;
     text-align: center;
-    border: 1px solid #7fb0c9;
+    border: 1px solid #7fbac9;
     line-height: 1.6;
 }
 
 .description {
     font-size: 14px;
-    background: #57c5f5;
+    background: #152c80;
     padding: 8px;
     border-radius: 6px;
 }
 
 .geo-data {
     font-size: 13px;
-    color: #bbdaf7;
+    color: #bbe2f7;
 }
 
 .weather-data h4 {
     margin: 5px 0;
-    color: #b1e0ff;
+    color: #bbdaf7;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -80,6 +87,17 @@ button:hover {
 .success-footer {
     margin-top: 20px;
     font-size: 12px;
-    color: #bbd7f7;
+    color: #8fbccf;
     font-weight: bold;
+}
+
+/* Mapa Leaflet: necesita altura definida para mostrarse */
+#map {
+    width: 90vw;
+    max-width: 700px;
+    height: 350px;
+    margin-top: 20px;
+    border-radius: 12px;
+    border: 1px solid #7faac9;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
 }
